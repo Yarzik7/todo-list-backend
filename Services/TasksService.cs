@@ -20,7 +20,28 @@ public class TasksService
 
     public async Task CreateAsync(TaskModel newTask) => await _tasksCollection.InsertOneAsync(newTask);
 
-    public async Task UpdateAsync(string id, TaskModel updatedTask) => await _tasksCollection.ReplaceOneAsync(x => x.Id == id, updatedTask);
+    public async Task UpdateAsync(string id, UpdateTaskModel updatedTask) {
+        var filter = Builders<TaskModel>.Filter.Eq(task => task.Id, id);
+        var updateBuilder = Builders<TaskModel>.Update;
+
+        var updateDefinitions = new List<UpdateDefinition<TaskModel>>();
+
+        if (updatedTask.Caption != null)
+        {
+           updateDefinitions.Add(updateBuilder.Set(task => task.Caption, updatedTask.Caption));
+        }
+
+        if (updatedTask.IsComplete.HasValue)
+        {
+           updateDefinitions.Add(updateBuilder.Set(task => task.IsComplete, updatedTask.IsComplete));
+        }
+
+        if (updateDefinitions.Any())
+        {
+           var combinedUpdate = Builders<TaskModel>.Update.Combine(updateDefinitions);
+           await _tasksCollection.UpdateOneAsync(filter, combinedUpdate);
+        }
+    }
 
     public async Task RemoveAsync(string id) => await _tasksCollection.DeleteOneAsync(x => x.Id == id);
 }
