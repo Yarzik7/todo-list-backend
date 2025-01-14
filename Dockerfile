@@ -1,14 +1,16 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 5029
 
 ENV ASPNETCORE_URLS=http://+:5029
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
+
 COPY ["todo-list-backend.csproj", "./"]
 RUN dotnet restore "todo-list-backend.csproj"
+
 COPY . .
 WORKDIR "/src/."
 RUN dotnet build "todo-list-backend.csproj" -c $configuration -o /app/build
