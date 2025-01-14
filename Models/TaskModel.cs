@@ -13,5 +13,5 @@ public class TaskModel
     public string Caption { get; set; } = null!;
 
     [BsonElement("isCompleted")]
-    public bool IsComplete { get; set; }
+    public bool IsCompleted { get; set; }
 }
