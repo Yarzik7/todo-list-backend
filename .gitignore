@@ -5,6 +5,7 @@
 
 # dotenv files
 .env
+.vscode
 appsettings.Development.json
 Properties/launchSettings.json
 WeatherForecast.cs
