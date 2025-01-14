@@ -7,5 +7,5 @@ public class UpdateTaskModel {
     public string? Caption { get; set; }
 
     [BsonElement("isCompleted")]
-    public bool? IsComplete { get; set; }
+    public bool? IsCompleted { get; set; }
 }

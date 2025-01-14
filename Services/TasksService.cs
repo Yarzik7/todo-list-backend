@@ -31,9 +31,9 @@ public class TasksService
            updateDefinitions.Add(updateBuilder.Set(task => task.Caption, updatedTask.Caption));
         }
 
-        if (updatedTask.IsComplete.HasValue)
+        if (updatedTask.IsCompleted.HasValue)
         {
-           updateDefinitions.Add(updateBuilder.Set(task => task.IsComplete, updatedTask.IsComplete));
+           updateDefinitions.Add(updateBuilder.Set(task => task.IsCompleted, updatedTask.IsCompleted));
         }
 
         if (updateDefinitions.Any())
