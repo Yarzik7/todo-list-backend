@@ -16,7 +16,7 @@ public class TasksService
 
     public async Task<List<TaskModel>> GetAsync() => await _tasksCollection.Find(_ => true).ToListAsync();
 
-    public async Task<TaskModel?> GetAsync(string id) => await _tasksCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+    public async Task<TaskModel?> GetAsync(string id) => await _tasksCollection.Find(task => task.Id == id).FirstOrDefaultAsync();
 
     public async Task CreateAsync(TaskModel newTask) => await _tasksCollection.InsertOneAsync(newTask);
 
