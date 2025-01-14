@@ -20,6 +20,8 @@ public class TasksService
 
     public async Task CreateAsync(TaskModel newTask) => await _tasksCollection.InsertOneAsync(newTask);
 
+    public async Task RemoveAsync(string id) => await _tasksCollection.DeleteOneAsync(task => task.Id == id);
+
     public async Task UpdateAsync(string id, UpdateTaskModel updatedTask) {
         var filter = Builders<TaskModel>.Filter.Eq(task => task.Id, id);
         var updateBuilder = Builders<TaskModel>.Update;
@@ -42,6 +44,4 @@ public class TasksService
            await _tasksCollection.UpdateOneAsync(filter, combinedUpdate);
         }
     }
-
-    public async Task RemoveAsync(string id) => await _tasksCollection.DeleteOneAsync(x => x.Id == id);
 }
